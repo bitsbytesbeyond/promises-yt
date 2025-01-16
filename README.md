@@ -92,5 +92,3 @@ In this example, the `getData` function is marked as `async`, which allows us to
 
 In this repo, we discussed the basics of asynchronous JavaScript, and how to use Promises and async/await to write clean and readable asynchronous code. By using these modern features, we can avoid the pitfalls of callback hell and write more maintainable code.
 
-I hope you found this article helpful! If you have any questions or feedback, please feel free to leave a comment below.
-
