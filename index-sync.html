@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synchronous Image Loader</title>
+    <style>
+        canvas {
+            border: none;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas" width="600" height="400"></canvas>
+
+<script>
+    const startTime = performance.now();
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function loadImageSync(url) {
+        const img = new Image();
+        img.src = url;
+
+        // This is the "blocking" part. It doesn't return a promise
+        // it will halt the current thread until the image is completely loaded.
+        img.onload = () => {
+            console.log(`Image ${url} loaded after ${performance.now() - startTime} ms`);
+            return img;
+        };
+        img.onerror = (e) => {
+            console.error(`Failed to load image at ${url}: ${e.message}`);
+            return null;
+        };
+
+        // Return new image, not yet loaded
+        return img;
+    }
+
+    const imageUrls = [
+        "1.png",
+        "2.png",
+        "3.png"
+    ];
+
+    const images = [];
+
+    function loadImagesSync() {
+        for (const imageUrl of imageUrls) {
+            const img = loadImageSync(imageUrl);
+            if (img) {
+                images.push(img);
+            }
+        }
+
+        console.log("Images being loaded...");
+        animate();
+    }
+
+
+    function animate() {
+        console.log("Start animating now, even though images are not loaded yet...");
+        let x = 10;
+        images.forEach(() => {
+            ctx.globalAlpha = 0.5; // Set initial transparency to 0
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the entire canvas before drawing
+            images.forEach((img, i) => {
+                ctx.globalAlpha = Math.min(ctx.globalAlpha + 0.3, 1); // Increase transparency
+                ctx.drawImage(img, 10 + i * 120, 10, 100, 100); // Draw image at x and y position with a width/height of 100
+            });
+            x += 180; // Increment the x position so that next image is drawn on the right
+        });
+    }
+
+    loadImagesSync();
+
+</script>
+</body>
+</html>
