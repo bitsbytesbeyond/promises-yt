@@ -1,6 +1,6 @@
 # Async JavaScript Made Easy: Promises, Async/Await Explained
 
-Youtube Video: [Async JavaScript Made Easy: Promises, Async/Await Explained](https://youtu.be/MQ1yovwbtBI)
+Youtube Video: [Async JavaScript Made Easy: Promises, Async/Await Explained](https://www.youtube.com/watch?v=QSP3DR8PTg0)
 
 ## Introduction
 
